@@ -1,0 +1,58 @@
+\section{Projects}
+\begin{frame}
+    \frametitle{Projects}
+    \framesubtitle{Software}
+
+    A first version of our new {\nbody} code,
+    written purely in C/C++ and CUDA, called {\GR}.
+
+    \begin{itemize}
+        \item The current version of our code,
+        \begin{itemize}
+            \item evolves a globular cluster, using and \blue{Hermite 4th order}
+                integration scheme, using block time steps.
+            \item has a \blue{suitable} in the energy conservation,
+                reaching errors around $\approx 10^{-9}$ and $\approx 10^{-7}$-
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Projects}
+    \framesubtitle{Software development}
+
+    \begin{itemize}
+        \item Main software
+        \begin{itemize}
+            \item Main goal in the development, \blue{legibility}.
+            \begin{itemize}
+                \item Easy to read, modify and understand,
+            \end{itemize}
+            \item \blue{Balance} between optimization and maintainability.
+        \end{itemize}
+        \item Utility scripts.
+    \end{itemize}
+\end{frame}
+
+\section{Future work}
+\begin{frame}
+    \frametitle{Projects}
+    \framesubtitle{Milestones}
+
+    \begin{itemize}
+        \item Programming
+        \begin{itemize}
+            \item Code refactoring (C++ OO).
+            \item Multi-GPU environment, large clusters (MPI).
+        \end{itemize}
+        \item Physics
+        \begin{itemize}
+            \item Semi-Keplerian systems (BH).
+            \item Neighbors treatment.
+            \item Regularisations (KS, Chain, ...)
+            \item Higher order integration schemes.
+            \item Smoothed-particle hydrodynamics (SPH).
+            \item ...
+        \end{itemize}
+    \end{itemize}
+\end{frame}

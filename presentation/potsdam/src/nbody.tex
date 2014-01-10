@@ -1,0 +1,71 @@
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Definition}
+
+    Purely dynamic problem, in which the bodies orbital evolution
+    is determined exclusive by the \blue{gravitational interaction},
+
+    \begin{align}
+        \bs{\ddot{r}}_{i} &= -G \sum\limits^{N}_{\substack{j=1\\j\neq i}}
+                              m_{j} {(\bs{r}_i - \bs{r}_j)\over
+                              | \bs{r}_i - \bs{r}_j|^{3}}\label{eq:nbody},
+    \end{align}
+
+    \noindent
+    where $G$ is the gravitational constant
+    ($6.67384\times 10^{-11} m^{3} kg^{-1} s^{-2}$),
+    $m_j$ is the mass of the $j$th particle
+    and $\bs{r}_j$ the position in \emph{Cartesian} coordinates.
+    \begin{block}{\red{Note}}
+        We denote vectors by bold fonts.
+    \end{block}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Checking the system evolution}
+
+    \begin{itemize}
+        \item The \blue{initial condition} are usually the masses,
+            position and velocity.
+
+        \item \blue{Chaotic nature}, the evolution of this systems
+         will depend of the initial parameters.
+
+        \item The often invariant to check the integration of the system,
+            is the system's \blue{energy},
+
+            \begin{align}
+                E &= {1 \over 2} \sum\limits^{N}_{i=1} m_{i} \bs{v}_{i}^{2} -
+                     \sum\limits_{i=1}^{N} \sum\limits_{j > i}^{N}
+                     {G m_{i} m_{j} \over |\bs{r}_{i} - \bs{r}_{j}|},
+            \end{align}
+
+            \noindent
+            where $\bs{v}_i$ is the velocity of the particle $i$.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Particle's time steps}
+
+    \begin{itemize}
+        \item The real scenario, \blue{individual} time steps.
+        \begin{itemize}
+            \item \red{Hard} scenario for parallel computing.
+        \end{itemize}
+        \item Forming groups of particles, \blue{block} time steps scheme~\cite{Press86}.
+        \begin{itemize}
+            \item  This time step scheme is popular among  {\nbody} code,
+                like Starlab~\cite{portegies2001, hut2003}, Aarseth {\nbody}
+                codes~\cite{Aarseth99, Aarseth03,NitadoriAarseth2012},
+                $\phi$GRAPE~\cite{harfst2008},
+                which gives us the possibility to check our algorithm behavior.
+        \end{itemize}
+    \end{itemize}
+\end{frame}

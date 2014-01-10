@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[pdftex,active,tightpage]{preview}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\begin{document}
+\pagestyle{empty}
+\begin{preview}
+
+% Define block styles
+\tikzstyle{decision} = [diamond,   draw, fill = orange!20, text width = 7em,
+                        text badly centered, node distance = 2.5cm, inner sep = 0pt]
+\tikzstyle{block}    = [rectangle, draw, fill = blue!20,   text width = 12em,
+                        text centered, rounded corners, minimum height = 2.5em, node distance = 1.5cm]
+\tikzstyle{block2}   = [rectangle, draw, fill = red!70,  text width = 12em,
+                        text centered, rounded corners, minimum height = 2.5em, node distance = 1.5cm]
+\tikzstyle{line}     = [draw, -latex']
+\tikzstyle{cloud}    = [draw, ellipse,fill = red!20, node distance = 2.5cm,
+                        minimum height = 2em]
+
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    \node [cloud]                         (input)      {Input $(m, \boldsymbol{r}, \boldsymbol{v})$};
+    \node [block,    below of=input]      (find)       {Det. particles to move};
+    \node [block,    below of=find]       (prediction) {Prediction $(\boldsymbol{r}_{\rm pred},\boldsymbol{v}_{\rm pred})$};
+    \node [block2,   below of=prediction] (forces)     {Force calculation $(\boldsymbol{a},\boldsymbol{\dot{a}})$};
+    \node [block,    below of=forces]     (correction) {Correction $(\boldsymbol{r}_{\rm corr},\boldsymbol{v}_{\rm corr})$};
+    \node [decision, below of=correction] (if)         {$T_{int} = T$?};
+    \node [cloud,    below of=if]         (output)     {Output};
+
+    \node [block,  left of=forces,  node distance=6cm]  (update) {$T_{int} = T_{int} + 1$};
+    % Draw edges
+    \path [line] (input) -- (find);
+    \path [line] (find) -- (prediction);
+    \path [line] (prediction) -- (forces);
+    \path [line] (forces) -- (correction);
+    \path [line] (correction) -- (if);
+    \path [line] (if) -| node [near start] {no} (update);
+    \path [line] (update) |- (find);
+    \path [line] (if) -- node {sí}(output);
+\end{tikzpicture}
+\end{preview}
+
+\end{document}

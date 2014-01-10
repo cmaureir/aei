@@ -1,0 +1,121 @@
+\documentclass{beamer}
+\usepackage[english,activeacute]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\definecolor{red}{RGB}{255,0,0}
+\definecolor{green}{RGB}{0,255,0}
+\definecolor{dgreen}{RGB}{118,151,53}
+\definecolor{blue}{RGB}{0,0,255}
+\definecolor{oran}{RGB}{255,93,0}
+
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\green}{\textcolor{green}}
+\newcommand{\dgreen}{\textcolor{dgreen}}
+\newcommand{\oran}{\textcolor{oran}}
+\newcommand{\gray}{\textcolor{gray}}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+\newcommand{\nbody}{$N-$body}
+\newcommand{\GR}{{\sc Gravidy }}
+
+\newcommand{\bs}{\boldsymbol}
+
+\renewcommand\mathfamilydefault{\rmdefault}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\usetheme[pageofpages=of,
+          alternativetitlepage=true,
+          titlepagelogo=img/aei,
+          watermark=,
+          watermarkheight=50px,
+          watermarkheightmult=1,
+          ]{Torino}
+
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.5cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.4cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     basicstyle=\tiny\ttfamily,
+     %commentstyle=\color{gray45},
+     %keywordstyle=\bfseries,
+     %
+     numbers=left,
+     numbersep=13pt,
+     numberstyle=\tiny,
+     numberfirstline = false,
+     breaklines=true,
+     emph = {[1]\_\_device\_\_,\_\_global\_\_,\_\_syncthreads,pthread\_create,pthread\_join,pragma,omp,parallel,private, threadIdx, blockDim, blockIdx,cudaThreadSynchronize, while, total},
+     emphstyle={[1]\color{blue}},
+   }
+
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]
+   {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+   }
+\lstdefinestyle{C}
+   {language=C,
+   }
+
+
+
+\usecolortheme{nouvelle}
+\vspace{-0.5cm}
+\author[C. Maureira-Fredes]
+       {\large Cristián Maureira-Fredes}
+\title[HPC DSS]
+      {\huge HPC for Dense Stellar Systems}
+\institute[AEI]
+          {Albert Einstein Institute}
+
+\begin{document}
+
+%\bibliographystyle{unsrt}
+
+% First slide
+\begin{frame}[t,plain]
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Contents}
+    \tableofcontents
+\end{frame}
+
+\include{src/introduction}
+\include{src/experiments}
+\include{src/projects}
+
+% Final slide
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\footnotesize
+\bibliographystyle{ieeetr}            %
+\bibliography{phdproject}
+\end{frame}
+
+\end{document}

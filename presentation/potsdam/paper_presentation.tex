@@ -1,0 +1,159 @@
+\documentclass{beamer}
+\usepackage[english,activeacute]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{breqn}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{float}
+
+\definecolor{red}{RGB}{255,0,0}
+\definecolor{green}{RGB}{0,255,0}
+\definecolor{dgreen}{RGB}{118,151,53}
+\definecolor{blue}{RGB}{0,0,255}
+\definecolor{oran}{RGB}{255,93,0}
+
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\green}{\textcolor{green}}
+\newcommand{\dgreen}{\textcolor{dgreen}}
+\newcommand{\oran}{\textcolor{oran}}
+\newcommand{\gray}{\textcolor{gray}}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+%\renewcommand\mathfamilydefault{\rmdefault}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\usetheme[pageofpages=of,
+          alternativetitlepage=true,
+          titlepagelogo=img/aei.png,
+          watermark=,
+          watermarkheight=50px,
+          watermarkheightmult=1,
+          ]{Torino}
+
+\lstset{
+     frame=single,
+     framerule=0pt,
+     aboveskip=0.5cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.4cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     language=C,
+     showstringspaces = false,
+     basicstyle=\scriptsize\ttfamily,
+     keywordstyle=\bfseries\color{green!70!black},
+     commentstyle=\itshape\color{purple},
+     %identifierstyle=\color{red},
+     stringstyle=\color{orange},
+     %commentstyle=\color{gray45},
+     %keywordstyle=\bfseries,
+     numbers=left,
+     numbersep=13pt,
+     numberstyle=\scriptsize,
+     numberfirstline = false,
+     breaklines=true,
+     emph = {[1]\_\_device\_\_, \_\_global\_\_, \_\_syncthreads,
+             pragma, omp, parallel, private, threadIdx, blockDim, blockIdx,
+             cudaThreadSynchronize, while, total, main,dim3},
+     emphstyle={[1]\color{blue!70!black}},
+   }
+
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]{\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}{basicstyle=\scriptsize\bf\ttfamily,
+                         backgroundcolor=\color{gray75},
+                        }
+
+
+
+\usecolortheme{nouvelle}
+\author[C. Maureira]
+       {\Large Cristián Maureira
+       \\\normalsize Dr. Pau Amaro-Seoane
+       }
+\title[GPU {\nbody} integrator]
+      {A modular, GPU-based, direct-summation\newline $N-$body integrator}
+\institute[AEI]{Albert Einstein Institute}
+
+\let\sun=\odot
+\newcommand{\SgrA}{Sgr~A$^\ast$}
+\newcommand{\GR}{{\sc Gravidy }}
+\newcommand {\MBH}{\ensuremath{M_{\mathrm{BH}}}}
+\newcommand {\mbh}{\ensuremath{M_{\mathrm{BH}}}}
+\newcommand {\Msun}{\ensuremath{M_{\odot}}}
+\newcommand {\msun}{\ensuremath{M_{\odot}}}
+\newcommand {\msol}{\ensuremath{M_{\odot}}}
+\newcommand {\Mstar}{\ensuremath{M_{\ast}}}
+\newcommand {\Rsun}{\ensuremath{R_{\odot}}}
+\newcommand {\Mpthree}{\ensuremath{M_{\odot}\,\mathrm{pc}^{-3}}}
+\newcommand {\RS}{\ensuremath{R_{\mathrm{S}}}}
+\newcommand {\kms}{\ensuremath{\mathrm{km\,s}^{-1}}}
+\newcommand {\peryr}{\ensuremath{\mathrm{yr}^{-1}}}
+\newcommand{\gr}{gravitational radiation}
+\newcommand{\gw}{gravitational waves}
+\newcommand{\rem}[1]{} % pour mettre des commentaires en ligne...
+\newcommand{\nbody}{$N$-body}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\todo}{\textcolor{red}{TO DO:}}
+
+\begin{document}
+
+%\bibliographystyle{unsrt}
+%\pagestyle{empty}
+
+% First slide
+\begin{frame}[t,plain]
+    \titlepage
+\end{frame}
+
+% Outline
+\include{src/outline}
+
+\section{Introduction}
+\include{src/introduction}
+
+\section{The $N-$body problem}
+\include{src/nbody}
+
+\section{GPU Computing}
+\include{src/gpu}
+
+\section{Implementation}
+\include{src/implementation}
+
+\section{Experiments}
+\include{src/experiments}
+
+\section{Challenges and future work}
+\include{src/challenges}
+
+%\section{Acknowledgements}
+%\include{src/acknowledgements}
+
+% References
+\begin{frame}[allowframebreaks]
+\footnotesize
+
+\bibliographystyle{ieeetr}            %
+\bibliography{/home/cmaureir/repos/GraviDy-docs/bib/tesis,/home/cmaureir/repos/GraviDy-docs/bib/aamnem99,/home/cmaureir/repos/GraviDy-docs/bib/biblio,/home/cmaureir/repos/GraviDy-docs/bib/cuda}    %
+\end{frame}
+
+% Final slide
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+
+\end{document}

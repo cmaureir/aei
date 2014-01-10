@@ -1,0 +1,76 @@
+\begin{frame}
+    \frametitle{Challenges and future work}
+
+    We presented a first version of our new {\nbody} code,
+    written purely in C/C++ and CUDA, called \red{\GR}.
+
+    \begin{itemize}
+        \item The current version of our code,
+        \begin{itemize}
+            \item evolves a globular cluster, using and \blue{Hermite 4th order}
+                integration scheme, using block time steps.
+            \item has a \blue{suitable} in the energy conservation,
+                reaching errors around $\approx 10^{-9}$ and $\approx 10^{-7}$-
+        \end{itemize}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Challenges and future work}
+    \framesubtitle{Features}
+
+    \begin{itemize}
+        \item Iterative and incremental development (APOD cycle),
+        \item Modular code,
+        \item Documentation,
+        \item Hermite 4th order integrator scheme,
+        \item Block time steps,
+        \item GPU computing to improve the hot-spots,
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{challenges and future work}
+    \framesubtitle{the next steps (1/2)}
+
+    \begin{itemize}
+%        \item Publication in the ISI Journal ``Monthly Notices of the Royal Astronomical Society (MNRAS)''.
+        \item Continue the \blue{research} on {\nbody} integrators, like
+                higher order Hermite schemes.
+        \item More physical phenomena treatments,
+        \begin{itemize}
+            \item \blue{Neighbors treatment}, to handle the binary formation,
+                This has been proved by using a time-symmetric integration scheme
+                for the binary system, which is described in the work of~\cite{myriad}.
+
+            \item Handle \blue{semi-Keplerian} systems,
+                    {\nbody} systems with a central massive particle~\cite{ulf},
+                    like a massive black hole (MBH) in the galactic center,
+                    or a star in a protoplanetary system, etc.
+
+            \item Post-Newtonian terms into the acceleration and its derivatives.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{challenges and future work}
+    \framesubtitle{the next steps (2/2)}
+
+    \begin{itemize}
+        \item Porting the code towards large GPU clusters, \blue{multi-GPU} environment.
+        \item Studying \blue{new computational improvements},
+        \begin{itemize}
+            \item Numerical precision,
+            \item Mixed-parallel schemes,
+            \item Different architectures,
+        \end{itemize}
+        \item Use GPU Computing to solve additional Astrophysical problems,
+        \begin{itemize}
+            \item Smoothed-particle hydrodynamics (SPH).
+        \end{itemize}
+
+    \end{itemize}
+\end{frame}
+
