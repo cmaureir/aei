@@ -42,18 +42,35 @@
     \framesubtitle{Milestones}
 
     \begin{itemize}
-        \item Programming
+        \item \soft{Programming}
         \begin{itemize}
-            \item Multi-GPU environment, large clusters (MPI).
+            \item<2-> Multi-GPU environment, large clusters (MPI).
+            \item<3-> Assess, Parallelize, Optimize, Deploy(APOD) design cycle.
+            \item<4-> Analysis of FP precision.
         \end{itemize}
-        \item Physics
+        \item \soft{Physics}
         \begin{itemize}
-            \item Semi-Keplerian systems (BH).
-            \item Neighbors treatment.
-            \item Regularisations (KS, Chain, ...)
-            \item Higher order integration schemes.
-            \item Smoothed-particle hydrodynamics (SPH).
-            \item ...
+            \item<5-> Semi-Keplerian systems
+            \begin{itemize}
+                \item Globular cluster + BH.
+            \end{itemize}
+            \item<6-> Neighbors treatment.
+            \begin{itemize}
+                \item Near particles are more important than the rest of the system.
+            \end{itemize}
+            \item<7-> Regularisations (KS, Chain, ...)
+            \begin{itemize}
+                \item Remove the softening parameter \soft{$\epsilon^{2}$}.
+            \end{itemize}
+            \item<8-> Higher order integration schemes.
+            \begin{itemize}
+                \item Hermite 6th order (Faster, and more accurate).
+            \end{itemize}
+            \item<9-> Smoothed-particle hydrodynamics (SPH).
+            \begin{itemize}
+                \item Different treatment for particle systems.
+            \end{itemize}
+            \item<10-> etc.
         \end{itemize}
     \end{itemize}
 \end{frame}
