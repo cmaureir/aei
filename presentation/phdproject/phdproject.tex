@@ -1,17 +1,19 @@
-\documentclass{beamer}
+\documentclass[english]{beamer}
 \usepackage[english,activeacute]{babel}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{inputenc}
 \usepackage{listings}
-\usepackage{color}
+\usepackage{xcolor}
 \usepackage{tikz}
 \usepackage{caption}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{breqn}
 
-\definecolor{red}{RGB}{255,0,0}
+\definecolor{red}{RGB}{255,20,0}
 \definecolor{green}{RGB}{0,255,0}
 \definecolor{dgreen}{RGB}{118,151,53}
-\definecolor{blue}{RGB}{0,0,255}
+\definecolor{blue}{RGB}{2,103,255}
 \definecolor{oran}{RGB}{255,93,0}
 
 \newcommand{\blue}{\textcolor{blue}}
@@ -20,9 +22,12 @@
 \newcommand{\dgreen}{\textcolor{dgreen}}
 \newcommand{\oran}{\textcolor{oran}}
 \newcommand{\gray}{\textcolor{gray}}
+\newcommand{\soft}{\textcolor{socolor}}
 \definecolor{gray97}{gray}{.97}
 \definecolor{gray75}{gray}{.75}
 \definecolor{gray45}{gray}{.45}
+%\setbeamercolor{block body}{bg=white, fg=black}
+
 
 \newcommand{\nbody}{$N-$body}
 \newcommand{\GR}{{\sc Gravidy }}
@@ -32,15 +37,9 @@
 \renewcommand\mathfamilydefault{\rmdefault}
 \setbeamertemplate{blocks}[rounded][shadow=true]
 
-\usetheme[pageofpages=of,
-          alternativetitlepage=true,
-          titlepagelogo=img/aei,
-          watermark=,
-          watermarkheight=50px,
-          watermarkheightmult=1,
-          ]{Torino}
+\usetheme{simplebeauty}
 
-\lstset{ frame=Ltb,
+\lstset{frame=Ltb,
      framerule=0pt,
      aboveskip=0.5cm,
      framextopmargin=3pt,
@@ -48,8 +47,8 @@
      framexleftmargin=0.4cm,
      framesep=0pt,
      rulesep=.4pt,
-     backgroundcolor=\color{gray97},
-     rulesepcolor=\color{black},
+%     backgroundcolor=\white,
+     rulesepcolor=\color{white},
      %
      stringstyle=\ttfamily,
      showstringspaces = false,
@@ -62,7 +61,7 @@
      numberstyle=\tiny,
      numberfirstline = false,
      breaklines=true,
-     emph = {[1]\_\_device\_\_,\_\_global\_\_,\_\_syncthreads,pthread\_create,pthread\_join,pragma,omp,parallel,private, threadIdx, blockDim, blockIdx,cudaThreadSynchronize, while, total},
+     emph = {[1]\_\_device\_\_,\_\_global\_\_,\_\_syncthreads,pthread\_create,pthread\_join,pragma,omp,parallel,private, threadIdx, blockDim, blockIdx,cudaThreadSynchronize, while, total, MPI_Allreduce},
      emphstyle={[1]\color{blue}},
    }
 
@@ -80,8 +79,6 @@
 
 
 
-\usecolortheme{nouvelle}
-\vspace{-0.5cm}
 \author[C. Maureira-Fredes]
        {\large Cristián Maureira-Fredes}
 \title[HPC DSS]
@@ -104,6 +101,8 @@
 \end{frame}
 
 \include{src/introduction}
+\include{src/computational}
+\include{src/implementation}
 \include{src/experiments}
 \include{src/projects}
 

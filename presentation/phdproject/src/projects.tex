@@ -3,16 +3,18 @@
     \frametitle{Projects}
     \framesubtitle{Software}
 
-    A first version of our new {\nbody} code,
-    written purely in C/C++ and CUDA, called {\GR}.
+    The current version of our new {\nbody} code,
+    written in C/C++ and CUDA, called {\GR}.
 
     \begin{itemize}
         \item The current version of our code,
         \begin{itemize}
-            \item evolves a globular cluster, using and \blue{Hermite 4th order}
-                integration scheme, using block time steps.
-            \item has a \blue{suitable} in the energy conservation,
+            \item Using \blue{Hermite 4th order} integration scheme.
+            \item Block timesteps for helping parallelism.
+            \item \blue{Suitable} in the energy conservation,
                 reaching errors around $\approx 10^{-9}$ and $\approx 10^{-7}$-
+            \item OO.
+            \item Documentation (Doxygen).
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -42,7 +44,6 @@
     \begin{itemize}
         \item Programming
         \begin{itemize}
-            \item Code refactoring (C++ OO).
             \item Multi-GPU environment, large clusters (MPI).
         \end{itemize}
         \item Physics

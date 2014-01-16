@@ -1,77 +1,52 @@
 \section{Introduction}
 
+\subsection{The {\nbody} problem}
 \begin{frame}
-    \frametitle{Introduction}
-    \framesubtitle{Motivation (1/2)}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Definition (1/2)}
 
     \begin{columns}
         \begin{column}{0.6\textwidth}
-            \begin{itemize}
-                \item Dynamical evolution of a dense stellar systems.
-                      ({\nbody} Problem)
-                \item Newtonian systems compounded by \blue{more than two stars},
-                      needs numerical approaches.
-            \end{itemize}
+                \begin{block}{}
+            \begin{center}
+                Predicting motion of a group or celestial objects that interact
+                each other gravitationally.
+            \end{center}
+            \end{block}
         \end{column}
         \begin{column}{0.4\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[width=0.8\textwidth]{img/m69}
-                \caption{Globular cluster ``Messier 69'' in the constellation Sagittarius.}
-                \label{fig:m69}
-            \end{figure}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\textwidth]{img/m69}
+            \caption{M69 in Sagittarius.}
+            \label{fig:m69}
+        \end{figure}
         \end{column}
     \end{columns}
+
 \end{frame}
 
-\begin{frame}
-    \frametitle{Introduction}
-    \framesubtitle{Motivation (2/2)}
-
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
-            \begin{itemize}
-                \item Evolution of the High Performance Computing (HPC).
-            \end{itemize}
-            \begin{center}
-                \includegraphics[width=0.8\textwidth]{img/top500}
-            \end{center}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[width=0.8\textwidth]{img/cluster}
-                \caption{GPU Cluster Mole-8.5 in Beijing, at the Institute of Process
-                         Engineering of Chinese Academy of Sciences.
-                         (372 nodes and 2,000 NVIDIA Fermi C2050 GPUs)}
-                \label{fig:m69}
-            \end{figure}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\section{The {\nbody} problem}
 \begin{frame}
     \frametitle{The {\nbody} problem}
-    \framesubtitle{Definition}
+    \framesubtitle{Definition (2/2)}
 
     Purely dynamic problem, in which the bodies orbital evolution
     is determined exclusive by the \blue{gravitational interaction},
 
     \begin{align}
-        \bs{\ddot{r}}_{i} &= -G \sum\limits^{N}_{\substack{j=1\\j\neq i}}
-                              m_{j} {(\bs{r}_i - \bs{r}_j)\over
-                              | \bs{r}_i - \bs{r}_j|^{3}}\label{eq:nbody},
+        \ddot{\vec{r}}_{i} &= -G \sum\limits^{N}_{\substack{j=1\\j\neq i}}
+                              m_{j}\ \dfrac{\vec{r}_{ij}}{
+                              | \vec{r}_{ij}|^{3}}\label{eq:nbody},
     \end{align}
 
     \noindent
-    where $G$ is the gravitational constant
-    ($6.67384\times 10^{-11} m^{3} kg^{-1} s^{-2}$),
-    $m_j$ is the mass of the $j$th particle
-    and $\bs{r}_j$ the position in \emph{Cartesian} coordinates.
-    \begin{block}{\red{Note}}
-        We denote vectors by bold fonts.
-    \end{block}
+    where \soft{$G$} is the gravitational constant,
+%    ($6.67384\times 10^{-11} m^{3} kg^{-1} s^{-2}$),
+    \soft{$m_j$} is the mass of the \soft{$j-$}th particle
+    and \soft{$\vec{r}_{ij} = (\vec{r}_i - \vec{r}_j)$} the position in \emph{Cartesian} coordinates.
+    %\begin{block}{\red{Note}}
+    %    We denote vectors by \textbf{bold\ fonts}.
+    %\end{block}
 \end{frame}
 
 
@@ -81,50 +56,33 @@
 
     \begin{itemize}
         \item The \blue{initial condition} are usually the masses,
-            position and velocity.
+              position and velocity.
+              (Different distributions and shapes: Plummer, King, Dehnen, etc)
 
-        \item \blue{Chaotic nature}, the evolution of this systems
-         will depend of the initial parameters.
+        \item \blue{Chaotic nature}, the evolution of the system
+              is highly sensitive to the initial conditions.
 
         \item The often invariant to check the integration of the system,
-            is the system's \blue{energy},
+              is the system's \blue{energy},
 
             \begin{align}
-                E &= {1 \over 2} \sum\limits^{N}_{i=1} m_{i} \bs{v}_{i}^{2} -
-                     \sum\limits_{i=1}^{N} \sum\limits_{j > i}^{N}
-                     {G m_{i} m_{j} \over |\bs{r}_{i} - \bs{r}_{j}|},
+             %   E &= {1 \over 2} \sum\limits^{N}_{i=1} m_{i} \bs{v}_{i}^{2} -
+             %        \sum\limits_{i=1}^{N} \sum\limits_{j > i}^{N}
+             %        {G m_{i} m_{j} \over |\bs{r}_{i} - \bs{r}_{j}|},
+                E &= K + U
+            \end{align}
+            %\noindent
+            %where $\bs{v}_i$ is the velocity of the particle $i$.
+            and sometimes the \blue{angular momentum},
+            \begin{align}
+                \vec{L} &= \vec{r} \times \vec{p}
             \end{align}
 
-            \noindent
-            where $\bs{v}_i$ is the velocity of the particle $i$.
     \end{itemize}
-
 \end{frame}
-
 
 \begin{frame}
     \frametitle{The {\nbody} problem}
-    \framesubtitle{Particle's time steps}
-
-    \begin{itemize}
-        \item The real scenario, \blue{individual} time steps.
-        \begin{itemize}
-            \item \red{Hard} scenario for parallel computing.
-        \end{itemize}
-        \item Forming groups of particles, \blue{block} time steps scheme~\cite{Press86}.
-        \begin{itemize}
-            \item  This time step scheme is popular among  {\nbody} code,
-                like Starlab~\cite{portegies2001, hut2003}, Aarseth {\nbody}
-                codes~\cite{Aarseth99, Aarseth03,NitadoriAarseth2012},
-                $\phi$GRAPE~\cite{harfst2008},
-                which gives us the possibility to check our algorithm behavior.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Introduction}
     \framesubtitle{{\nbody} algorithms classification}
 
     \begin{description}
@@ -135,7 +93,7 @@
             with a complexity $O(N\log N)$~\cite{BarnesHut86}
             or the fast multipole method with $O(N)$~\cite{GreendardThesis}.
             \vspace{0.7cm}
-        \item[Collisional (``direct-summation'')]
+        \item[Collisional ("direct-summation")]
             One star integrates \blue{all gravitational forces}
             for all stars. This typically scale as $O(N^{2})$.
             A well-known example is the family of algorithm of Aarseth
@@ -145,158 +103,154 @@
 
 \end{frame}
 
-\section{Computational aspects}
+
 \begin{frame}
-    \frametitle{Introduction}
-    \framesubtitle{The computational challenge}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Moving the particles (Timesteps) (1/3)}
 
     \begin{itemize}
-        \item The {\nbody} codes evolution is related to the available
-                \blue{hardware} in our time.
-        \item The algorithms with a complexity of $O(N^{2})$ or $O(N^{3})$ require
-                \red{supercomputers}.
-        \begin{itemize}
-            \item  e.g \blue{beowulf clusters},
-                which require a parallelization of the code
-                ({\sc Nbody6++} developed by Spurzem et al.~\cite{Spurzem1999}).
+        \item Individual timesteps allows an accurate treatment of the evolution
+              (handle close encounters)
+        \item An Predictor-Corrector integration scheme:
+              \begin{enumerate}
+                  \item \blue{Select} a particle \soft{$i$} which has the minimum \soft{$\Delta t_{i} + t_{i}$}
+                  (where \soft{$\Delta t_{i}$} and \soft{$t_{i}$} are its own timestep and current time)
+                  \item Calculate gravitational \blue{interactions} of this particle.
+                        (Predict all the other particles to the current time)
+                  \item \blue{Integrate} the particle \soft{$i$} to its new time
+                        \soft{$t_{new} = \Delta t_{i} + t_{i}$}.
+                        (Correcting its information using higher derivatives elements)
+                  \item Get the new timestep.
+              \end{enumerate}
 
-            \item Special-purpose hardware, like the \blue{GRAPE} (short for GRAvity
-                PipE system~\cite{TMFES96,MT98,Makino98,GRAPE6A}.
-
-        \end{itemize}
-
-        \item  The literature overview reveals a strong interest on porting the existing codes to the
-            \blue{GPU} architecture, like e.g. the work
-            of~\cite{Portegies2007a,Hamada2007,Belleman2008}
-            on single nodes or using large
-            clusters~\cite{berczik2011high,NitadoriAarseth2012,Capuzzo-DolcettaEtAl2013}.
-
+        \item \red{Difficult} scenario for parallel computing.
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Moving the particles (Timesteps) (2/3)}
+
+    \begin{itemize}
+        \item Block timesteps offers a \blue{restriction} for the particles timesteps,
+              to be a power of two~\cite{Press86}.
+        \item The integration scheme will change from "Select a particle",
+              for "Select a \blue{group} of particles".
+        \item This time step scheme is popular among  {\nbody} code,
+              like Starlab~\cite{portegies2001, hut2003}, Aarseth {\nbody}
+              codes~\cite{Aarseth99, Aarseth03,NitadoriAarseth2012},
+              $\phi$GRAPE~\cite{harfst2008}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Moving the particles (Timesteps) (3/3)}
+
+          \begin{figure}[H]
+              \centering
+              \colorbox{white}{%
+              \includegraphics[width=0.5\textwidth]{img/block_time-steps.pdf}
+              }%
+              \label{fig:block_time steps}
+              \caption{Block time steps illustration.
+                       The different blocks are represented by different colors.
+                       Each particle is predicted (not move) at every time $t$ \gray{(gray arrows)},
+                       even if it's not their block time-step \blue{(blue circles)}.
+                       The particles will be updated (moved) only in their block time-step
+                       (black circles).}
+          \end{figure}
 
 \end{frame}
 
-\subsection{GPU Computing}
-\begin{frame}
-    \frametitle{Introduction}
-    \framesubtitle{GPU Computing}
 
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Hermite 4th order (Predictor-Corrector)}
     \begin{columns}
         \begin{column}{0.6\textwidth}
-            \begin{itemize}
-                \item \emph{``Using a GPU (Graphic Processing Unit) together with
-                      a CPU to accelerate scientific calculation operations
-                      or general purpose calculation''}
-            \end{itemize}
+        \begin{block}{Prediction}
+        \footnotesize
+        \begin{align*}
+            \vec{r}_{i,pred} &= \vec{r}_{i,0} +
+                            \vec{v}_{i,0} \Delta t_{i}  +
+                            \vec{a}_{i,0} \frac{\Delta t^{2}_{i}}{2!} +
+                            \vec{\dot{a}}_{i,0} \frac{\Delta t^{3}_{i}}{3!} \\
+            \vec{v}_{i,pred} &= \vec{v}_{i,0} +
+                            \vec{a}_{i,0} \Delta t_{i}  +
+                            \vec{\dot{a}}_{i,0} \frac{\Delta t^{2}_{i}}{2!}
+        \end{align*}
+
+        \end{block}
         \end{column}
         \begin{column}{0.4\textwidth}
-             \begin{figure}
-                 \centering
-                 \includegraphics[width=0.8\textwidth]{img/titan}
-                 \caption{NVIDIA\textsuperscript{\textregistered} GTX Titan}
-                 \label{fig:titan}
-             \end{figure}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Introduction}
-    \framesubtitle{CPU/GPU Design}
-
-    \begin{itemize}
-        \item CPU,
-        \begin{itemize}
-            \item Designed to have a good \blue{performance}
-                  in parallel and non-parallel scenarios.
-            \item Minimizes the \blue{latency} experimented by a thread
-                  (large cache memory)
-        \end{itemize}
-        \item GPU,
-            \begin{itemize}
-            \item Designed to perform highly parallel work.
-            \item Maximizes the \blue{throughput} of all the threads.
-            \end{itemize}
-    \end{itemize}
-
-    \begin{footnotesize}
-        \begin{columns}
-            \begin{column}{0.35\textwidth}
-            \begin{block}{Performance}
-                Capacity of perform individual instructions in a certain time.
-            \end{block}
-            \end{column}
-            \begin{column}{0.3\textwidth}
-            \begin{block}{Latency}
-                Measure of time delay experienced in a system.
-            \end{block}
-            \end{column}
-            \begin{column}{0.3\textwidth}
-            \begin{block}{Throughput}
-                Capacity of perform a whole task in a certain time.
-            \end{block}
-            \end{column}
-        \end{columns}
-    \end{footnotesize}
-
-    %\begin{description}
-    %    \item[Performance]
-    %            Capacity of perform individual instructions in a certain time.
-    %    \item[Throughput]
-    %            Capacity of perform a whole task in a certain time.
-    %    \item[Latency]
-    %            Measure of time delay experienced in a system.
-    %    \item[Granularity]
-    %            Break down a system into small parts.(Coarse and Fine)
-    %\end{description}
-\end{frame}
-
-\begin{frame}
-    \framesubtitle{Introduction}
-    \frametitle{GPU Architecture}
-
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
-            \begin{block}{Task parallelism}
-                Each processor perform a different task.
-            \end{block}
-            \begin{block}{Data parallelism}
-                Each processor perform the same task, but not on the same data set.
-            \end{block}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-             \begin{figure}
-                 \centering
-                 \includegraphics[width=0.8\textwidth]{img/cpu_gpu}
-                 \caption{GPU and CPU core scheme}
-                 \label{fig:titan}
-             \end{figure}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\subsection{Programming strategy}
-\begin{frame}
-    \frametitle{Introduction}
-    \framesubtitle{Programming strategy}
-
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
             \begin{figure}
-                \captionsetup{singlelinecheck=off}
                 \centering
-                \includegraphics[width=0.9\textwidth]{img/cuda-strategy}
-                \label{fig:estrategia}
-                \caption{CUDA Programming strategy}
+                \includegraphics[height=0.55\textheight]{img/algorithm1}
+                %\caption{}
+                \label{fig:algoritmo}
             \end{figure}
         \end{column}
-        \begin{column}{0.5\textwidth}
-             \begin{enumerate}
-                 \item CPU memory allocation,
-                 \item \dgreen{GPU} memory allocation,
-                 \item Data copying,  CPU $\rightarrow$ \dgreen{GPU},
-                 \item Task execution on the data,
-                 \item Data copying, \dgreen{GPU} $\rightarrow$ CPU,
-             \end{enumerate}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Hermite 4th order (Predictor-Corrector)}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{block}{Force calculation}
+                \footnotesize
+                \begin{align*}
+                    \vec{a}_{i,1} &= \sum_{\substack{j=0\\j\neq i}}^{N} G m_{j}
+                                    \frac{\vec{r}_{ij}}
+                                           {(r_{ij}^2 + \epsilon^{2})^{\frac{3}{2}}}, \\
+                    \vec{\dot{a}}_{i,1} &= \sum_{\substack{j=0\\j\neq i}}^{N} G m_{j}
+                                    \left[
+                                        \frac{\vec{v}_{ij}}
+                                            {(r_{ij}^2 + \epsilon^{2})^{\frac{3}{2}}} -
+                                        \frac{3(\vec{v}_{ij}\cdot \vec{r}_{ij}) \vec{r}_{i}}
+                                            {(r_{ij}^2 + \epsilon^{2})^{\frac{5}{2}}}
+                                    \right],
+                \end{align*}
+            \end{block}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[height=0.55\textheight]{img/algorithm2}
+                %\caption{}
+                \label{fig:algoritmo}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The {\nbody} problem}
+    \framesubtitle{Hermite 4th order (Predictor-Corrector)}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+        \begin{block}{Correction}
+        \footnotesize
+        \begin{align*}
+            \vec{r}_{i,1} &= \vec{r}_{i,pred} +
+                                \frac{1}{24}  \Delta t_{i}^{4} \vec{a}_{i,0}^{(2)} +
+                                \frac{1}{120} \Delta t_{i}^{5} \vec{a}_{i,0}^{(3)} \\
+            \vec{v}_{i,1} &= \vec{v}_{i,pred} +
+                                \frac{1}{4}  \Delta t_{i}^{3} \vec{a}_{i,0}^{(2)} +
+                                \frac{1}{24} \Delta t_{i}^{4} \vec{a}_{i,0}^{(3)}
+        \end{align*}
+        \end{block}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[height=0.55\textheight]{img/algorithm3}
+                %\caption{}
+                \label{fig:algoritmo}
+            \end{figure}
         \end{column}
     \end{columns}
 \end{frame}

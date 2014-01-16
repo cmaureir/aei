@@ -1,6 +1,9 @@
 SRC=phdproject
 all:
-	@rubber --pdf $(SRC)
+	@xelatex --pdf $(SRC)
+	@bibtex $(SRC)
+	@xelatex --pdf $(SRC)
+	@xelatex --pdf $(SRC)
 x:
 	okular $(SRC).pdf &> /dev/null &
 clean:
